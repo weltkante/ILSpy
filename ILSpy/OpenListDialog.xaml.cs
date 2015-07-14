@@ -44,6 +44,7 @@ namespace ICSharpCode.ILSpy
 		private void listView_Loaded(object sender, RoutedEventArgs e)
 		{
 			listView.ItemsSource = manager.AssemblyLists;
+			nameColumn.Width = listView.ActualWidth - 27;
 			CreateDefaultAssemblyLists();
 		}
 
