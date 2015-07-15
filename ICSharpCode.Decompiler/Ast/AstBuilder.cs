@@ -126,7 +126,7 @@ namespace ICSharpCode.Decompiler.Ast
 
 		static bool IsClosureType(TypeDefinition type)
 		{
-			return type.HasGeneratedName() && type.IsCompilerGenerated() && (type.Name.Contains("DisplayClass") || type.Name.Contains("AnonStorey"));
+			return type.HasGeneratedName() && type.IsCompilerGenerated() && (type.Name.Contains("DisplayClass") || type.Name.Contains("AnonStorey") || type.Name.StartsWith("<>c", StringComparison.Ordinal));
 		}
 		
 		/// <summary>
