@@ -273,6 +273,10 @@ namespace ICSharpCode.Decompiler.ILAst
 							parent.Arguments[j] = newObj;
 							block.Body.RemoveAt(i);
 							i -= new ILInlining(method).InlineInto(block.Body, i, aggressive: false);
+
+							// HACK: try the previous line again in case there was another lambda to be inlined
+							i--;
+							CachedDelegateInitializationWithField2(block, ref i);
 							return;
 						}
 					}
