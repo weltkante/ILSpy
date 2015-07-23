@@ -209,6 +209,13 @@ namespace ICSharpCode.Decompiler.ILAst
 				if (!MatchStFld(method.Body[i], stateMachineVar, out field, out fieldInit))
 					return false;
 				ILVariable v;
+				if (fieldInit.Code == ILCode.Ldobj)
+				{
+					if (fieldInit.Operand is TypeDefinition && (TypeDefinition)fieldInit.Operand == context.CurrentType)
+						fieldInit = fieldInit.Arguments.Single() as ILExpression;
+					else if (System.Diagnostics.Debugger.IsAttached)
+						System.Diagnostics.Debugger.Break(); // TODO: does the above check need Resolve calls?
+				}
 				if (!fieldInit.Match(ILCode.Ldloc, out v))
 					return false;
 				if (!v.IsParameter)
