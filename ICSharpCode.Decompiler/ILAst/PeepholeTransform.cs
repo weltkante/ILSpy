@@ -275,8 +275,10 @@ namespace ICSharpCode.Decompiler.ILAst
 							i -= new ILInlining(method).InlineInto(block.Body, i, aggressive: false);
 
 							// HACK: try the previous line again in case there was another lambda to be inlined
-							i--;
-							CachedDelegateInitializationWithField2(block, ref i);
+							if(i > 0) {
+								i--;
+								CachedDelegateInitializationWithField2(block, ref i);
+							}
 							return;
 						}
 					}
