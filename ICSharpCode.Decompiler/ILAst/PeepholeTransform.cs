@@ -274,8 +274,11 @@ namespace ICSharpCode.Decompiler.ILAst
 							block.Body.RemoveAt(i);
 							i -= new ILInlining(method).InlineInto(block.Body, i, aggressive: false);
 
-							// HACK: try the previous line again in case there was another lambda to be inlined
-							if(i > 0) {
+							// HACK: Fixes case where a function receives more than one lambda as argument.
+							//       We need to check for i>0 to avoid running out of bounds when lambdas
+							//       are passed to the first call in a function.
+							if (i > 0)
+							{
 								i--;
 								CachedDelegateInitializationWithField2(block, ref i);
 							}
